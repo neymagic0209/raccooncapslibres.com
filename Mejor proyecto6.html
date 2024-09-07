@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Gorras Interactivo</title>
+    <style>
+        :root {
+            --color-neon: #00ffcc;
+            --color-neon-intenso: #ff00ff;
+            --color-oscuro: #142b70;
+            --color-claro: #ffffff;
+            --color-fondo-neon: #000000;
+            --color-fondo-oscuro: #121212;
+            --color-fondo-claro: #f4f4f4;
+            --texto-claro: #000000;
+            --texto-oscuro: #495e5d;
+            --texto-neon: #ffcc00;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.modo-oscuro {
+            background-color: var(--color-fondo-oscuro);
+            color: var(--texto-oscuro);
+        }
+
+        body.modo-claro {
+            background-color: var(--color-fondo-claro);
+            color: var(--texto-claro);
+        }
+
+        body.modo-neon {
+            background-color: var(--color-fondo-neon);
+            color: var(--texto-neon);
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin: 30px 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img {
+            width: 150px;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-text {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .catalogo.visible {
+            opacity: 1;
+        }
+
+        .producto {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .producto.modo-oscuro {
+            background-color: var(--color-oscuro);
+        }
+
+        .producto img {
+            width: 100%;
+            max-width: 250px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .producto img:hover {
+            transform: scale(1.05);
+        }
+
+        .producto .precio {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .producto button {
+            background-color: var(--color-neon);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .producto button:hover {
+            background-color: #18e298;
+        }
+
+        /* Interfaz para cambiar tema */
+        .tema-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .tema-selector button {
+            background-color: var(--color-neon);
+            border: none;
+            color: black;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .tema-selector button:hover {
+            background-color: #18e298;
+        }
+
+        .carrito {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .carrito h2 {
+            margin-top: 0;
+        }
+
+        .carrito ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .carrito li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .carrito button {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .carrito button:hover {
+            background-color: #20b954;
+        }
+
+    </style>
+</head>
+<body class="modo-claro">
+
+<header>
+    <h1>Venta de Gorras</h1>
+</header>
+
+<!-- Cambiador de temas -->
+<div class="tema-selector">
+    <button onclick="cambiarTema('modo-claro')">Claro</button>
+    <button onclick="cambiarTema('modo-oscuro')">Oscuro</button>
+    <button onclick="cambiarTema('modo-neon')">Neón</button>
+</div>
+
+<!-- Logo -->
+<div class="logo-container" onclick="mostrarCatalogo()">
+    <img src="OIG1-fotor-20240903223329 - copia.png" alt="Logo de la tienda">
+    <div class="logo-text">Presiona el mapache para continuar</div>
+</div>
+
+<!-- Catálogo -->
+<section class="catalogo" id="catalogo">
+    <!-- Producto 1 -->
+    <div class="producto">
+        <img src="gorra1.jpg" alt="Gorra Roja">
+        <h3>Gorra Roja</h3>
+        <div class="precio">$19.99</div>
+        <button onclick="agregarAlCarrito('Gorra Roja', 19.99, 'https://tusitio.com/gorra1.jpg')">Agregar al carrito</button>
+    </div>
+    
+    <!-- Producto 2-10 (Vacíos para personalización) -->
+    <div class="producto">
+        <img src="gorra2.jpg" alt="Gorra 2">
+        <h3>Gorra 2</h3>
+        <div class="precio">$29.99</div>
+        <button onclick="agregarAlCarrito('Gorra 2', 29.99, 'https://tusitio.com/gorra2.jpg')">Agregar al carrito</button>
+    </div>
+    
+    <div class="producto">
+        <img src="U+NK+DFADV+RISE+CAP+S+AB+SF+P.png" alt="Gorra 3">
+        <h3>Gorra 3</h3>
+        <div class="precio">$24.99</div>
+        <button onclick="agregarAlCarrito('Gorra 3', 24.99, 'https://tusitio.com/gorra3.jpg')">Agregar al carrito</button>
+    </div>
+
+    <!-- Agregar otros productos (4-10) con imágenes y precios según necesites -->
+    <!-- Producto 4 -->
+    <div class="producto">
+        <img src="images (3).jpeg" alt="Gorra 4">
+        <h3>Gorra 4</h3>
+        <div class="precio">$35.99</div>
+        <button onclick="agregarAlCarrito('Gorra 4', 35.99, 'https://tusitio.com/gorra4.jpg')">Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 5 -->
+    <div class="producto">
+        <img src="images (2).jpeg" alt="Gorra 5">
+        <h3>Gorra 5</h3>
+        <div class="precio">$22.99</div>
+        <button onclick="agregarAlCarrito('Gorra 5', 22.99, 'https://tusitio.com/gorra5.jpg')">Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 6 -->
+    <div class="producto">
+        <img src="images.jpeg" alt="Gorra 6">
+        <h3>Gorra 6</h3>
+        <div class="precio">$27.99</div>
+        <button onclick="agregarAlCarrito('Gorra 6', 27.99, 'https://tusitio.com/gorra6.jpg')">Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 7 -->
+    <div class="producto">
+        <img src="images (1).jpeg" alt="Gorra 7">
+        <h3>Gorra 7</h3>
+        <div class="precio">$23.99</div>
+        <button onclick="agregarAlCarrito('Gorra 7', 23.99, 'https://tusitio.com/gorra7.jpg')">Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 8 -->
+    <div class="producto">
+        <img src="gorra8.jpg" alt="Gorra 8">
+        <h3>Gorra 8</h3>
+        <div class="precio">$30.99</div>
+        <button onclick="agregarAlCarrito('Gorra 8', 30.99, 'https://tusitio.com/gorra8.jpg')">Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 9 -->
+    <div class="producto">
+        <img src="gorra9.jpg" alt="Gorra 9">
+        <h3>Gorra 9</h3>
+        <div class="precio">$28.99</div>
+        <button onclick="agregarAlCarrito('Gorra 9', 28.99, 'https://tusitio.com/gorra9.jpg')">Agregar al carrito</button>
+    </div>
+
+    <!-- Producto 10 -->
+    <div class="producto">
+        <img src="gorra10.jpg" alt="Gorra 10">
+        <h3>Gorra 10</h3>
+        <div class="precio">$21.99</div>
+        <button onclick="agregarAlCarrito('Gorra 10', 21.99, 'https://tusitio.com/gorra10.jpg')">Agregar al carrito</button>
+    </div>
+
+</section>
+
+<section class="carrito">
+    <h2>Carrito de Compras</h2>
+    <ul id="lista-carrito"></ul>
+    <button id="enviarWhatsapp" onclick="enviarWhatsapp()">Enviar por WhatsApp</button>
+</section>
+
+<script>
+    // Cambiar tema
+    function cambiarTema(modo) {
+        document.body.className = modo;
+    }
+
+    // Mostrar el catálogo al hacer clic en el logo
+    function mostrarCatalogo() {
+        document.querySelector('.logo-container').style.display = 'none';
+        document.getElementById('catalogo').classList.add('visible');
+    }
+
+    // Array para almacenar los productos seleccionados
+    let carrito = [];
+
+    // Función para agregar productos al carrito
+    function agregarAlCarrito(nombre, precio, imagen) {
+        carrito.push({nombre: nombre, precio: precio, imagen: imagen});
+        mostrarCarrito();
+    }
+
+    // Función para mostrar los productos seleccionados en el carrito
+    function mostrarCarrito() {
+        const listaCarrito = document.getElementById('lista-carrito');
+        listaCarrito.innerHTML = '';
+        carrito.forEach((producto, index) => {
+            listaCarrito.innerHTML += `<li>
+                <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 50px; vertical-align: middle;">
+                ${producto.nombre} - $${producto.precio.toFixed(2)}
+            </li>`;
+        });
+    }
+
+    // Función para enviar el mensaje por WhatsApp
+    function enviarWhatsapp() {
+        let mensaje = 'Hola, estos son los productos que quiero comprar:%0A';
+        let total = 0;
+        carrito.forEach(producto => {
+            mensaje += `- ${producto.nombre}: $${producto.precio.toFixed(2)}%0AImagen: ${producto.imagen}%0A`;
+            total += producto.precio;
+        });
+        mensaje += `Total: $${total.toFixed(2)}`;
+        
+        // Número de teléfono al que se enviará el mensaje
+        let telefono = '5212218092864';
+        
+        // Abrir WhatsApp con el mensaje generado
+        let url = `https://api.whatsapp.com/send?phone=${telefono}&text=${mensaje}`;
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
